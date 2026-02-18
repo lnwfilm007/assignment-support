@@ -1,0 +1,100 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Assignment Support App</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#6a7cff,#8b5cf6);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.card{
+    background:#fff;
+    width:420px;
+    padding:30px;
+    border-radius:14px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    text-align:center;
+}
+h1{margin-bottom:10px;}
+.btn{
+    display:block;
+    margin:10px 0;
+    padding:12px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    background:#6a7cff;
+    font-weight:bold;
+}
+.btn.secondary{background:#8b5cf6;}
+.list a{
+    display:block;
+    margin:8px 0;
+    padding:10px;
+    background:#eef2ff;
+    border-radius:8px;
+    text-decoration:none;
+    color:#333;
+}
+.back{margin-top:15px; display:block;}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="login">
+<h1>Login</h1>
+<a class="btn" href="#dashboard">Login</a>
+</div>
+
+<div class="card" id="dashboard" style="display:none">
+<h1>Dashboard</h1>
+<a class="btn" href="#courses">Course List</a>
+<a class="btn secondary" href="#login">Logout</a>
+</div>
+
+<div class="card" id="courses" style="display:none">
+<h1>Course List</h1>
+<div class="list">
+<a href="#assignment">Object Oriented Design and Programming</a>
+<a href="#assignment">English for Communication 2</a>
+<a href="#assignment">Mathematics for Engineering 1</a>
+<a href="#assignment">Data Structures and Algorithms</a>
+<a href="#assignment">UI / UX Design</a>
+<a href="#assignment">Introduction to Software Engineering</a>
+</div>
+<a class="back" href="#dashboard">← Back</a>
+</div>
+
+<div class="card" id="assignment" style="display:none">
+<h1>Assignment</h1>
+<div class="list">
+<a href="#">Overview</a>
+<a href="#">Instructions</a>
+<a href="#">Rubric</a>
+<a href="#">Sample Work</a>
+<a href="#">Checklist</a>
+<a href="#">Submit</a>
+</div>
+<a class="back" href="#courses">← Back</a>
+</div>
+
+<script>
+const pages=["login","dashboard","courses","assignment"];
+function show(page){
+ pages.forEach(p=>document.getElementById(p).style.display="none");
+ document.getElementById(page).style.display="block";
+}
+window.onhashchange=()=>show(location.hash.substring(1)||"login");
+show(location.hash.substring(1)||"login");
+</script>
+
+</body>
+</html>
