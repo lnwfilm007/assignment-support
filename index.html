@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #6a7cff, #8b5cf6);
       min-height: 100vh;
       display: flex;
@@ -15,104 +15,114 @@
     }
 
     .card {
-      background: #ffffff;
+      background: #fff;
       width: 420px;
-      padding: 32px;
-      border-radius: 18px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.2);
       text-align: center;
+      display: none;
     }
 
-    h1 {
+    h1, h2 {
       margin-bottom: 20px;
     }
 
-    h2 {
-      margin-bottom: 16px;
-    }
-
-    .btn {
+    .btn, .course-btn {
       display: block;
-      margin: 12px 0;
+      width: 100%;
       padding: 14px;
+      margin: 10px 0;
       border-radius: 12px;
       text-decoration: none;
       color: #fff;
-      font-weight: bold;
       background: #6a7cff;
-      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-
-    .secondary {
+    .btn.secondary {
       background: #8b5cf6;
     }
 
-    .course {
-      background: #f4f6ff;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      font-weight: 500;
+    .course-btn {
+      background: #f3f4ff;
+      color: #333;
     }
 
-    .hidden {
-      display: none;
+    .course-btn:hover {
+      background: #e0e4ff;
+    }
+
+    .show {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
-  <div class="card" id="login">
-    <h1>Assignment Support</h1>
-    <a href="#dashboard" class="btn" onclick="showDashboard()">Login</a>
-  </div>
+<!-- LOGIN -->
+<div class="card show" id="login">
+  <h1>Login</h1>
+  <button class="btn" onclick="go('dashboard')">Login</button>
+</div>
 
-  <!-- DASHBOARD -->
-  <div class="card hidden" id="dashboard">
-    <h2>Dashboard</h2>
-    <a href="#courses" class="btn" onclick="showCourses()">Course List</a>
-    <a href="#login" class="btn secondary" onclick="showLogin()">Logout</a>
-  </div>
+<!-- DASHBOARD -->
+<div class="card" id="dashboard">
+  <h1>Dashboard</h1>
+  <button class="btn" onclick="go('courses')">Course List</button>
+  <button class="btn secondary" onclick="go('login')">Logout</button>
+</div>
 
-  <!-- COURSE LIST -->
-  <div class="card hidden" id="courses">
-    <h2>My Courses</h2>
+<!-- COURSES -->
+<div class="card" id="courses">
+  <h2>My Courses</h2>
 
-    <div class="course">Introduction to Software Engineering</div>
-    <div class="course">Object-Oriented Programming</div>
-    <div class="course">Database Systems</div>
+  <button class="course-btn" onclick="openAssignment('Introduction to Software Engineering')">
+    Introduction to Software Engineering
+  </button>
 
-    <a href="#dashboard" class="btn secondary" onclick="showDashboard()">Back to Dashboard</a>
-  </div>
+  <button class="course-btn" onclick="openAssignment('Object-Oriented Programming')">
+    Object-Oriented Programming
+  </button>
 
-  <script>
-    function hideAll() {
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("dashboard").classList.add("hidden");
-      document.getElementById("courses").classList.add("hidden");
-    }
+  <button class="course-btn" onclick="openAssignment('Database Systems')">
+    Database Systems
+  </button>
 
-    function showLogin() {
-      hideAll();
-      document.getElementById("login").classList.remove("hidden");
-    }
+  <button class="btn secondary" onclick="go('dashboard')">
+    Back to Dashboard
+  </button>
+</div>
 
-    function showDashboard() {
-      hideAll();
-      document.getElementById("dashboard").classList.remove("hidden");
-    }
+<!-- ASSIGNMENT -->
+<div class="card" id="assignment">
+  <h2 id="courseTitle">Assignment</h2>
 
-    function showCourses() {
-      hideAll();
-      document.getElementById("courses").classList.remove("hidden");
-    }
-  </script>
+  <button class="course-btn">Overview</button>
+  <button class="course-btn">Instructions</button>
+  <button class="course-btn">Rubric</button>
+  <button class="course-btn">Sample Work</button>
+  <button class="course-btn">Checklist</button>
+  <button class="course-btn">Submit</button>
+
+  <button class="btn secondary" onclick="go('courses')">
+    Back to Courses
+  </button>
+</div>
+
+<script>
+  function go(page) {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('show'));
+    document.getElementById(page).classList.add('show');
+  }
+
+  function openAssignment(courseName) {
+    document.getElementById('courseTitle').innerText = courseName;
+    go('assignment');
+  }
+</script>
 
 </body>
 </html>
